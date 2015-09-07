@@ -17,6 +17,7 @@ public class Starter : MonoBehaviour
 
     public void StartBall(float force)
     {
+        ball.rotation = Quaternion.identity;
         ball.velocity = Vector3.zero;
         ball.transform.position = positionStart;
 
