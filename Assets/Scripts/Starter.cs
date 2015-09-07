@@ -17,12 +17,17 @@ public class Starter : MonoBehaviour
 
     public void StartBall(float force)
     {
-        ball.rotation = Quaternion.identity;
-        ball.velocity = Vector3.zero;
-        ball.transform.position = positionStart;
+        Reset();
 
         ball.AddForce(Vector3.forward * force * sliderSpeed.value);
         Debug.Log("StartBall " + (force * sliderSpeed.value).ToString());
+    }
+
+    public void Reset()
+    {
+        ball.rotation = Quaternion.identity;
+        ball.velocity = Vector3.zero;
+        ball.transform.position = positionStart;
     }
 
     protected void Start()
