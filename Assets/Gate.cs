@@ -5,7 +5,20 @@ public class Gate : MonoBehaviour
 {
     public float force = 10000.0f;
 
+    private enum State
+    {
+        None,
+        Hit,
+        Reset
+    }
+
     private HingeJoint hingeJoint;
+    private State state = State.None;
+
+    public void SetHit()
+    {
+        state = State.Hit;
+    }
 
     protected void Start()
     {
@@ -14,17 +27,30 @@ public class Gate : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        var spring = hingeJoint.spring;
-
-        if (Input.GetButton("Fire1"))
+        switch (state)
         {
-            spring.spring = force;
-        }
-        else
-        {
-            spring.spring = 0.0f;
-        }
+            case State.Hit:
+                {
+                    var spring = hingeJoint.spring;
+                    spring.spring = force;
+                    hingeJoint.spring = spring;
 
-        hingeJoint.spring = spring;
+                    state = State.Reset;
+                }
+                break;
+
+            case State.Reset:
+                {
+                    var spring = hingeJoint.spring;
+                    spring.spring = 0.0f;
+                    hingeJoint.spring = spring;
+
+                    state = State.None;
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 }
