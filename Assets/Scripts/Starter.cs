@@ -17,11 +17,6 @@ public class Starter : MonoBehaviour
         ScoreViewer.ResetScore();
     }
 
-    public void Exit()
-    {
-        Application.Quit();
-    }
-
     protected void Update()
     {
         if (Input.GetButtonDown(buttonNamePause))

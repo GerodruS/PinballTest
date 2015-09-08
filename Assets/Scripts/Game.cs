@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//#define LOG_TABLE
+
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour
@@ -23,7 +25,9 @@ public class Game : MonoBehaviour
                    playerNameDefault :
                    playerName;
 
+#if LOG_TABLE
         Debug.Log("Add: " + nick + " : " + score);
+#endif
 
         var scores = Game.LoadScores();
         if (null == scores)
@@ -68,14 +72,20 @@ public class Game : MonoBehaviour
             int count = Mathf.Min(nicks.Length, 5);
             var scores = new Score[count];
 
+#if LOG_TABLE
             Debug.Log("table start");
+#endif
             for (int i = 0; i < count; ++i)
             {
                 scores[i].nick = nicks[i];
                 scores[i].value = values[i];
+#if LOG_TABLE
                 Debug.Log(nicks[i] + " : " + values[i].ToString());
+#endif
             }
+#if LOG_TABLE
             Debug.Log("table end");
+#endif
 
             return scores;
         }
