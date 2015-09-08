@@ -10,7 +10,7 @@ public class ExitButton : MonoBehaviour
     protected void Start()
     {
 #if UNITY_WEBPLAYER || UNITY_IOS
-        SetActive(false);
+        gameObject.SetActive(false);
 #endif
     }
 }
