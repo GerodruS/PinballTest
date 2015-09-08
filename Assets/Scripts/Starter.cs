@@ -13,7 +13,8 @@ public class Starter : MonoBehaviour
         ball.velocity = Vector3.zero;
         ball.transform.position = positionReset.position;
 
-        Game.SaveScore(999);
+        Game.SaveScore(ScoreViewer.GetScore());
+        ScoreViewer.ResetScore();
     }
 
     public void Exit()
