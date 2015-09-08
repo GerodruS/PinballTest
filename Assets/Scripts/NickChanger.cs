@@ -3,15 +3,15 @@ using UnityEngine.UI;
 
 public class NickChanger : MonoBehaviour
 {
-    public Text labelNick;
+    public InputField fieldNick;
 
     public void ChangeNick()
     {
-        Game.playerName = labelNick.text;
+        Game.playerName = fieldNick.text;
     }
 
-    protected void Start()
+    protected void OnEnable()
     {
-        labelNick.text = Game.playerName;
+        fieldNick.text = Game.playerName;
     }
 }

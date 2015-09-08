@@ -87,7 +87,7 @@ public class Game : MonoBehaviour
     {
         playerName = string.IsNullOrEmpty(inputTextPlayerName.text) ?
                      playerNameDefault :
-                     playerName;
+                     inputTextPlayerName.text;
         Application.LoadLevel(value);
     }
 }
