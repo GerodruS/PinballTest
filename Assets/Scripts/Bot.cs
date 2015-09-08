@@ -8,6 +8,8 @@ public class Bot : MonoBehaviour
     public SliderStarter sliderStarter;
     public TriggerBall triggerBall;
     public BallDestructor ballDestructor;
+    public Gate gateLeft;
+    public Gate gateRight;
 
     [Header("Settings")]
     public bool isRandomly = true;
@@ -17,6 +19,7 @@ public class Bot : MonoBehaviour
 
     private float force = 1.0f;
     private int stepCountCurrent = 0;
+    private Coroutine coroutineGateActivity;
 
     private enum State
     {
@@ -73,10 +76,6 @@ public class Bot : MonoBehaviour
         SetIsBotRandomly(isRandomly);
     }
 
-    protected void Update()
-    {
-    }
-
     protected IEnumerator StartBall()
     {
         state = State.Start;
@@ -105,5 +104,32 @@ public class Bot : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         sliderStarter.OnPointerUp(null);
         state = State.WaitForResult;
+        StartGateActivity();
+    }
+
+    protected void StartGateActivity()
+    {
+        if (coroutineGateActivity != null)
+        {
+            StopCoroutine(coroutineGateActivity);
+        }
+        StartCoroutine(GateActivity());
+    }
+
+    protected IEnumerator GateActivity()
+    {
+        while (State.WaitForResult == state)
+        {
+            if (0.5f < Random.value)
+            {
+                gateLeft.SetHit();
+            }
+            else
+            {
+                gateRight.SetHit();
+            }
+            yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
+        }
+        coroutineGateActivity = null;
     }
 }
