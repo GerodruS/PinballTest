@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -9,7 +8,11 @@ public class SliderStarter : MonoBehaviour, IPointerUpHandler
     public float force;
 
     private Slider slider;
-    private Vector3 hitterStartPosition;
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        slider.value = 1.0f;
+    }
 
     protected void Start()
     {
@@ -19,15 +22,5 @@ public class SliderStarter : MonoBehaviour, IPointerUpHandler
     protected void FixedUpdate()
     {
         triggerRigidbody.AddForce(Vector3.back * force * (1.0f - slider.value));
-    }
-
-    public void OnValueChanged(float value)
-    {
-        //Debug.Log("OnValueChanged " + value);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        slider.value = 1.0f;
     }
 }

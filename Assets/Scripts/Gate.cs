@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
     public float force = 10000.0f;
-    public string buttonName = "Fire1";
+    public string buttonName = "HitLeft";
 
     private enum State
     {

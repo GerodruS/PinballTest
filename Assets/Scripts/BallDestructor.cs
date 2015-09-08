@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BallDestructor : MonoBehaviour
 {
@@ -8,7 +7,6 @@ public class BallDestructor : MonoBehaviour
 
     protected void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(string.Format("OnCollisionEnter {0} {1}", collision.gameObject.name, collision.gameObject.tag));
         if (collision.gameObject.tag == tagDestructor)
         {
             starter.Reset();
