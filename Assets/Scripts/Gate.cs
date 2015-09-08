@@ -27,7 +27,7 @@ public class Gate : MonoBehaviour
 
     protected void Update()
     {
-        if (Input.GetButton(buttonName))
+        if (Input.GetButtonDown(buttonName))
         {
             SetHit();
         }

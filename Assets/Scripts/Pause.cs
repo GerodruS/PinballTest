@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
-    private bool isPause = true;
+    private bool isPause = false;
 
     public void SwitchState()
     {
@@ -23,10 +23,5 @@ public class Pause : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
-    }
-
-    protected void Start()
-    {
-        SetPause(false);
     }
 }
