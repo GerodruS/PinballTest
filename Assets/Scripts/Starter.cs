@@ -12,6 +12,8 @@ public class Starter : MonoBehaviour
         ball.rotation = Quaternion.identity;
         ball.velocity = Vector3.zero;
         ball.transform.position = positionReset.position;
+
+        Game.SaveScore(999);
     }
 
     public void Exit()
