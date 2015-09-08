@@ -4,18 +4,18 @@ public class Ball : MonoBehaviour
 {
     public float maxSpeed = 50.0f;
 
-    private Rigidbody rigidbody;
+    private Rigidbody thisRigidbody;
 
     protected void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        thisRigidbody = GetComponent<Rigidbody>();
     }
 
     protected void FixedUpdate()
     {
-        if (maxSpeed < rigidbody.velocity.magnitude)
+        if (maxSpeed < thisRigidbody.velocity.magnitude)
         {
-            rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+            thisRigidbody.velocity = thisRigidbody.velocity.normalized * maxSpeed;
         }
     }
 }

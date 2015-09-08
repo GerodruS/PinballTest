@@ -12,7 +12,7 @@ public class Gate : MonoBehaviour
         Reset
     }
 
-    private HingeJoint hingeJoint;
+    private HingeJoint thisHingeJoint;
     private State state = State.None;
 
     public void SetHit()
@@ -22,7 +22,7 @@ public class Gate : MonoBehaviour
 
     protected void Start()
     {
-        hingeJoint = GetComponent<HingeJoint>();
+        thisHingeJoint = GetComponent<HingeJoint>();
     }
 
     protected void Update()
@@ -39,9 +39,9 @@ public class Gate : MonoBehaviour
         {
             case State.Hit:
                 {
-                    var spring = hingeJoint.spring;
+                    var spring = thisHingeJoint.spring;
                     spring.spring = force;
-                    hingeJoint.spring = spring;
+                    thisHingeJoint.spring = spring;
 
                     state = State.Reset;
                 }
@@ -49,9 +49,9 @@ public class Gate : MonoBehaviour
 
             case State.Reset:
                 {
-                    var spring = hingeJoint.spring;
+                    var spring = thisHingeJoint.spring;
                     spring.spring = 0.0f;
-                    hingeJoint.spring = spring;
+                    thisHingeJoint.spring = spring;
 
                     state = State.None;
                 }

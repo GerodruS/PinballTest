@@ -17,6 +17,12 @@ public class ScoreTable : MonoBehaviour
         }
     }
 
+    public void ClearAllData()
+    {
+        Game.RemoveScores();
+        Refresh();
+    }
+
     public void Refresh()
     {
         Clear();
@@ -47,5 +53,10 @@ public class ScoreTable : MonoBehaviour
             rowCount = labelsScore.Length;
             Refresh();
         }
+    }
+
+    protected void OnEnable()
+    {
+        Refresh();
     }
 }

@@ -1,4 +1,4 @@
-﻿//#define LOG_TABLE
+﻿#define LOG_TABLE
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,13 +11,30 @@ public class Game : MonoBehaviour
         public int value;
     }
 
-    public static string playerName;
+    public static string PlayerName
+    {
+        get
+        {
+            if (null == playerName)
+            {
+                playerName = playerNameDefault;
+            }
+            return playerName;
+        }
+        set
+        {
+            playerName = value;
+        }
+    }
+
     public static string playerNameDefault = "XXX";
 
     public static string keyNicks = "ScoreTableNicks";
     public static string keyScores = "ScoreTableScores";
 
     public Text inputTextPlayerName;
+
+    private static string playerName;
 
     public static void SaveScore(int score)
     {
@@ -30,7 +47,7 @@ public class Game : MonoBehaviour
 #endif
 
         var scores = Game.LoadScores();
-        if (null == scores)
+        if (null == scores || 1 == scores.Length)
         {
             scores = new Score[0];
         }
@@ -39,9 +56,12 @@ public class Game : MonoBehaviour
 
         var nicks = new string[countNew];
         var values = new int[countNew];
+#if LOG_TABLE
+        Debug.Log("save table start");
+#endif
         for (int i = 0, j = 0; i < countNew; ++i)
         {
-            if (count == j || scores[j].value < score)
+            if (i == j || scores[j].value <= score)
             {
                 nicks[i] = nick;
                 values[i] = score;
@@ -52,10 +72,22 @@ public class Game : MonoBehaviour
                 values[i] = scores[j].value;
                 ++j;
             }
+#if LOG_TABLE
+            Debug.Log(nicks[i] + " : " + values[i].ToString());
+#endif
         }
+#if LOG_TABLE
+        Debug.Log("table end");
+#endif
 
         PlayerPrefsX.SetStringArray(keyNicks, nicks);
         PlayerPrefsX.SetIntArray(keyScores, values);
+    }
+
+    public static void RemoveScores()
+    {
+        PlayerPrefsX.SetStringArray(keyNicks, new string[] { "AAA" });
+        PlayerPrefsX.SetIntArray(keyScores, new int[] { 0 });
     }
 
     public static Score[] LoadScores()
@@ -70,10 +102,19 @@ public class Game : MonoBehaviour
         else
         {
             int count = Mathf.Min(nicks.Length, 5);
+
+            for (int i = 0; i < count; ++i)
+            {
+                if (values[i] <= 0)
+                {
+                    //--count;
+                }
+            }
+
             var scores = new Score[count];
 
 #if LOG_TABLE
-            Debug.Log("table start");
+            Debug.Log("load table start");
 #endif
             for (int i = 0; i < count; ++i)
             {

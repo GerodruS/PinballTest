@@ -7,11 +7,11 @@ public class NickChanger : MonoBehaviour
 
     public void ChangeNick()
     {
-        Game.playerName = fieldNick.text;
+        Game.PlayerName = fieldNick.text;
     }
 
     protected void OnEnable()
     {
-        fieldNick.text = Game.playerName;
+        fieldNick.text = Game.PlayerName;
     }
 }
