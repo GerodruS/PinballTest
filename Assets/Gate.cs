@@ -4,6 +4,7 @@ using UnityEngine;
 public class Gate : MonoBehaviour
 {
     public float force = 10000.0f;
+    public string buttonName = "Fire1";
 
     private enum State
     {
@@ -23,6 +24,14 @@ public class Gate : MonoBehaviour
     protected void Start()
     {
         hingeJoint = GetComponent<HingeJoint>();
+    }
+
+    protected void Update()
+    {
+        if (Input.GetButton(buttonName))
+        {
+            SetHit();
+        }
     }
 
     protected void FixedUpdate()
