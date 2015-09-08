@@ -22,16 +22,20 @@ public class Game : MonoBehaviour
         var nick = string.IsNullOrEmpty(playerName) ?
                    playerNameDefault :
                    playerName;
+
+        Debug.Log("Add: " + nick + " : " + score);
+
         var scores = Game.LoadScores();
         if (null == scores)
         {
             scores = new Score[0];
         }
         int count = scores.Length;
+        int countNew = Mathf.Min(count + 1, 5);
 
-        var nicks = new string[count + 1];
-        var values = new int[count + 1];
-        for (int i = 0, j = 0; i < count + 1; ++i)
+        var nicks = new string[countNew];
+        var values = new int[countNew];
+        for (int i = 0, j = 0; i < countNew; ++i)
         {
             if (count == j || scores[j].value < score)
             {
@@ -61,13 +65,17 @@ public class Game : MonoBehaviour
         }
         else
         {
-            int count = nicks.Length;
+            int count = Mathf.Min(nicks.Length, 5);
             var scores = new Score[count];
+
+            Debug.Log("table start");
             for (int i = 0; i < count; ++i)
             {
                 scores[i].nick = nicks[i];
                 scores[i].value = values[i];
+                Debug.Log(nicks[i] + " : " + values[i].ToString());
             }
+            Debug.Log("table end");
 
             return scores;
         }
@@ -77,7 +85,9 @@ public class Game : MonoBehaviour
 
     public void LoadLevel(int value)
     {
-        playerName = inputTextPlayerName.text;
+        playerName = string.IsNullOrEmpty(inputTextPlayerName.text) ?
+                     playerNameDefault :
+                     playerName;
         Application.LoadLevel(value);
     }
 }
