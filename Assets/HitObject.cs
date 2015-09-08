@@ -23,6 +23,6 @@ public class HitObject : MonoBehaviour
         var collider = GetComponent<Collider>();
         collider.material.bounciness = bounciness;
         collider.material.bounceCombine = bounceCombine;
-        Debug.Log(collider.material.bounciness);
+        //Debug.Log(collider.material.bounciness);
     }
 }
