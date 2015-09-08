@@ -38,18 +38,23 @@ public class Game : MonoBehaviour
 
     public static void SaveScore(int score)
     {
-        var nick = string.IsNullOrEmpty(playerName) ?
-                   playerNameDefault :
-                   playerName;
+        var nick = PlayerName;
 
 #if LOG_TABLE
         Debug.Log("Add: " + nick + " : " + score);
 #endif
 
         var scores = Game.LoadScores();
-        if (null == scores || 1 == scores.Length)
+        if (null == scores)
         {
             scores = new Score[0];
+        }
+        else if (1 == scores.Length)
+        {
+            if (0 == scores[0].value)
+            {
+                scores = new Score[0];
+            }
         }
         int count = scores.Length;
         int countNew = Mathf.Min(count + 1, 5);
@@ -61,10 +66,11 @@ public class Game : MonoBehaviour
 #endif
         for (int i = 0, j = 0; i < countNew; ++i)
         {
-            if (i == j || scores[j].value <= score)
+            if (count <= j || scores[j].value <= score)
             {
                 nicks[i] = nick;
                 values[i] = score;
+                score = -1;
             }
             else
             {
