@@ -3,26 +3,32 @@ using UnityEngine;
 
 public class HitObject : MonoBehaviour
 {
-    public float bounciness = 1.0f;
-    public PhysicMaterialCombine bounceCombine = PhysicMaterialCombine.Average;
+    public float force = 100.0f;
+    //public float bounciness = 1.0f;
+    //public PhysicMaterialCombine bounceCombine = PhysicMaterialCombine.Average;
 
     protected void Start()
     {
-        SetCollider();
+        //SetCollider();
     }
 
     protected void FixedUpdate()
     {
 #if UNITY_EDITOR
-        SetCollider();
+        //SetCollider();
 #endif
     }
 
     protected void SetCollider()
     {
         var collider = GetComponent<Collider>();
-        collider.material.bounciness = bounciness;
-        collider.material.bounceCombine = bounceCombine;
+        //collider.material.bounciness = bounciness;
+        //collider.material.bounceCombine = bounceCombine;
         //Debug.Log(collider.material.bounciness);
+    }
+
+    protected void OnCollisionEnter(Collision collision)
+    {
+        collision.rigidbody.AddExplosionForce(force, this.transform.position, 5);
     }
 }
