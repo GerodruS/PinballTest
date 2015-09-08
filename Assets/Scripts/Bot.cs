@@ -82,7 +82,7 @@ public class Bot : MonoBehaviour
         float f = force;
         if (isRandomly)
         {
-            f = Random.Range(0.0f, 1.0f);
+            f = Random.Range(0.2f, 1.0f);
         }
         else
         {
@@ -100,7 +100,7 @@ public class Bot : MonoBehaviour
         Debug.Log("StartBall with force=" + f.ToString());
         yield return new WaitForSeconds(1.0f);
         var slider = sliderStarter.GetComponent<Slider>();
-        slider.value = force;
+        slider.value = f;
         yield return new WaitForSeconds(1.0f);
         sliderStarter.OnPointerUp(null);
         state = State.WaitForResult;
